@@ -1,0 +1,37 @@
+name: Bug report
+description: Something shows the wrong account, wrong usage, or breaks.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Please don't paste tokens, `auth.json`, `.credentials.json` or anything from `~/.config/quota/accounts/`.** Emails can be replaced with `you@example.com`.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect, and what did you see instead?
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      description: "`quota status` output (redact emails if you like)."
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: quota version
+      placeholder: "quota version"
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Which tool?
+      multiple: true
+      options: [Claude, Codex, Grok, SwiftBar menu, Install]
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and chip
+      placeholder: "macOS 15.1, Apple M3"

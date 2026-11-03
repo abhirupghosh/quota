@@ -1,0 +1,10 @@
+/bin/
+/quota
+/dist/
+*.exe
+.DS_Store
+.env
+accounts/
+*.pem
+hosts.json
+

@@ -1,0 +1,33 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Build
+        run: |
+          mkdir -p dist
+          ver="${GITHUB_REF_NAME}"
+          flags="-s -w -X main.version=${ver}"
+          GOOS=darwin GOARCH=arm64 go build -ldflags "$flags" -o dist/quota-darwin-arm64 ./cmd/quota
+          GOOS=darwin GOARCH=amd64 go build -ldflags "$flags" -o dist/quota-darwin-amd64 ./cmd/quota
+          chmod +x dist/quota-darwin-*
+          (cd dist && shasum -a 256 quota-darwin-* > checksums.txt)
+      - uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            dist/quota-darwin-arm64
+            dist/quota-darwin-amd64
+            dist/checksums.txt

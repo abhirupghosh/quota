@@ -1,0 +1,7 @@
+{
+  "hosts": [
+    { "name": "mac", "local": true },
+    { "name": "devbox", "ssh": "devbox" },
+    { "name": "gpu", "ssh": "gpu-box" }
+  ]
+}
